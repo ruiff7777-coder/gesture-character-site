@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.pnpm-store/
+public/wasm/
+.DS_Store
+share-site*.zip
+share-site-clean/

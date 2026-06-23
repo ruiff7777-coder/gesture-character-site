@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#05080d" />
+    <meta name="description" content="通过摄像头手势唤醒、陪伴卡通角色的互动体验" />
+    <title>共感 · 形象交互</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <main class="app state-booting" id="app">
+      <div class="noise" aria-hidden="true"></div>
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="共感首页">
+          <span class="brand-mark"><i></i><i></i><i></i></span><span>共感</span><small>SYNC / 01</small>
+        </a>
+        <div class="privacy"><span></span> ON-DEVICE VISION · 本地识别</div>
+      </header>
+
+      <section class="hero" id="top">
+        <div class="character-stage" id="character-stage">
+          <canvas class="particle-field" id="particle-field" aria-hidden="true"></canvas>
+          <div class="halo halo-one"></div><div class="halo halo-two"></div>
+          <div class="character-card">
+            <div class="character-images">
+              <img class="character-image image-awake" src="./public/assets/character-awake.png" alt="睁眼苏醒的卡通角色" />
+              <img class="character-image image-smile" src="./public/assets/character-smile.png" alt="微笑的卡通角色" />
+              <img class="character-image image-sleep" src="./public/assets/character-sleep.jpg" alt="闭眼睡眠的卡通角色" />
+              <div class="light-sweep"></div>
+            </div>
+            <div class="card-readout"><span>SUBJECT 01</span><span id="state-code">BOOTING</span></div>
+          </div>
+          <div class="sleep-symbols" id="sleep-symbols" aria-hidden="true"><span>z</span><span>Z</span><span>Z</span></div>
+          <div class="joy-ripples" id="joy-ripples" aria-hidden="true"><i></i><i></i><i></i></div>
+        </div>
+
+      </section>
+
+      <aside class="camera-panel camera-idle" id="camera-panel">
+        <div class="camera-head"><span><i></i> VISION FEED</span><button type="button" id="camera-toggle">隐藏</button></div>
+        <div class="camera-viewport">
+          <video id="camera-video" muted playsinline aria-label="镜像摄像头预览"></video>
+          <canvas id="hand-canvas" aria-hidden="true"></canvas>
+          <div class="camera-placeholder" id="camera-placeholder"><span>◇</span><p id="camera-placeholder-copy">等待视觉信号</p></div>
+          <div class="scan-line"></div>
+        </div>
+        <div class="camera-status"><span class="status-dot"></span><p id="camera-copy">摄像头尚未开启<small id="gesture-copy">仍可使用下方按钮体验</small></p></div>
+        <button class="camera-action" id="camera-action" type="button">开启手势互动 <span>↗</span></button>
+      </aside>
+
+      <nav class="demo-controls" aria-label="演示控制">
+        <span class="demo-label">DEMO CONTROL</span>
+        <button type="button" data-action="wave"><span>⌁</span>挥手问好</button>
+        <button type="button" data-action="sleep"><span>●</span>进入睡眠</button>
+        <button type="button" data-action="wake"><span>✋</span>轻轻唤醒</button>
+      </nav>
+
+      <div class="boot-overlay" id="boot-overlay" aria-live="polite">
+        <div class="boot-copy"><span>CONNECTING</span><b id="boot-percent">00%</b></div>
+        <div class="boot-track"><i id="boot-progress"></i></div>
+      </div>
+    </main>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
