@@ -43,7 +43,8 @@ let usingFallbackVision = false
 
 const HAND_MODEL_BASE = './public/vendor/mediapipe'
 const HAND_MODEL_MODULE = `${HAND_MODEL_BASE}/vision_bundle.mjs`
-const HAND_MODEL_ASSET = `${HAND_MODEL_BASE}/models/hand_landmarker.task`
+const HAND_WASM_BASE = 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.21/wasm'
+const HAND_MODEL_ASSET = 'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/latest/hand_landmarker.task'
 const FINGERTIP_INDEXES = [4, 8, 12, 16, 20]
 
 function setCharacterState(next, sourceGesture = 'none') {
@@ -162,7 +163,7 @@ async function initHandLandmarker() {
   if (!handLandmarkerPromise) {
     handLandmarkerPromise = withTimeout(import(HAND_MODEL_MODULE), 12000, '加载手势识别脚本')
       .then(async ({ FilesetResolver, HandLandmarker }) => {
-        const vision = await withTimeout(FilesetResolver.forVisionTasks(`${HAND_MODEL_BASE}/wasm`), 12000, '加载手势识别 WASM')
+        const vision = await withTimeout(FilesetResolver.forVisionTasks(HAND_WASM_BASE), 12000, '加载手势识别 WASM')
         handLandmarker = await withTimeout(HandLandmarker.createFromOptions(vision, {
           baseOptions: {
             modelAssetPath: HAND_MODEL_ASSET,

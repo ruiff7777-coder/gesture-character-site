@@ -2,6 +2,8 @@ node_modules/
 dist/
 .pnpm-store/
 public/wasm/
+public/vendor/mediapipe/wasm/*.wasm
+public/vendor/mediapipe/models/*.task
 .DS_Store
 share-site*.zip
 share-site-clean/
